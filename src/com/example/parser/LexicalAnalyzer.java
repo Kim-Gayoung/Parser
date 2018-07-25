@@ -10,19 +10,19 @@ public class LexicalAnalyzer {
 	private BufferedReader br;
 	private ArrayList<String> strArr;
 	private ArrayList<Terminal> lexer;
-	
+
 	public LexicalAnalyzer(InputStreamReader isr) {
 		br = new BufferedReader(isr);
 		strArr = new ArrayList<>();
 		lexer = new ArrayList<>();
 	}
-	
+
 	public ArrayList<Terminal> Lexing() throws IOException {
 		String read_string = br.readLine();
-		
-		while(true) {
+
+		while (true) {
 			String next_string = br.readLine();
-			
+
 			if (next_string != null) {
 				strArr.add(read_string + "\n");
 				read_string = next_string;
@@ -32,24 +32,24 @@ public class LexicalAnalyzer {
 				break;
 			}
 		}
-		
+
 		lineno = 1;
-		
+
 		for (int idx = 0; idx < strArr.size(); idx++) {
 			String line = strArr.get(0);
 			String str = "";
 			int strIdx = 0;
 			Token currentTok = Token.NONE;
-			
+
 			while (line != null && strIdx < line.length()) {
 				char ch = line.charAt(strIdx);
 				int front_idx = strIdx + 1;
-				
-				if (ch >= '0' && ch <= '9') {	// num
+
+				if (ch >= '0' && ch <= '9') { // num
 					do {
 						strIdx++;
-						str = str+ch;
-						if (strIdx <= line.length()) {
+						str = str + ch;
+						if (strIdx < line.length()) {
 							ch = line.charAt(strIdx);
 						}
 						else
@@ -57,24 +57,38 @@ public class LexicalAnalyzer {
 					} while (ch >= '0' && ch <= '9');
 					currentTok = Token.NUM;
 				}
-				else if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {	// id
+				else if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) { // id
 					do {
 						strIdx++;
 						str = str + ch;
-						if (strIdx <= line.length()) {
+						if (strIdx < line.length()) {
 							ch = line.charAt(strIdx);
 						}
 						else
 							break;
-					} while((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'));
+					} while ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'));
+
+					if (strIdx < line.length()) {
+						ch = line.charAt(strIdx);
+						while ((ch >= '0' && ch <= '9')) {
+							strIdx++;
+							str = str + ch;
+							if (strIdx < line.length()) {
+								ch = line.charAt(strIdx);
+							}
+							else
+								break;
+						}
+					}
+
 					currentTok = Token.ID;
 				}
-				else if (ch == ' ') {
+				else if (ch == ' ' || ch == '\t' || ch == '\n') {
 					strIdx++;
 					continue;
 				}
 				else {
-					switch(ch) {
+					switch (ch) {
 					case '(':
 						currentTok = Token.OPENPAREN;
 						break;
@@ -88,17 +102,19 @@ public class LexicalAnalyzer {
 						currentTok = Token.MULTIPLY;
 						break;
 					}
+					str = str + ch;
 					strIdx++;
 				}
-				
+
 				lexer.add(new Terminal(str, currentTok, front_idx, strIdx + 1));
+				str = "";
 			}
 			lineno++;
 		}
-		
+
 		Terminal epsilon = new Terminal("$", Token.NONE, -1, -1);
 		lexer.add(epsilon);
-		
+
 		return lexer;
 	}
 }
