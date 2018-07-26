@@ -6,6 +6,9 @@ public class Terminal {
 	private int front;
 	private int end;
 	
+	public Terminal() {
+		
+	}
 	public Terminal(String syntax, Token token, int front, int end) {
 		this.syntax = syntax;
 		this.token = token;
