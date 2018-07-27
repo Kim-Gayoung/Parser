@@ -1,6 +1,6 @@
 package com.example.parser;
 
-public class Identifier {
+public class Identifier extends Expr {
 	private String name;
 
 	public Identifier(String name) {

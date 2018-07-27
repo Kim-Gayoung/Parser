@@ -1,19 +1,21 @@
 package com.example.parser;
 
-public class Terminal {
+public class Terminal extends Stkelem {
 	private String syntax;
 	private Token token;
-	private int front;
-	private int end;
+	private int chIndex;
+	private int lineIndex;
 	
 	public Terminal() {
 		
 	}
-	public Terminal(String syntax, Token token, int front, int end) {
+
+	public Terminal(String syntax, Token token, int chIndex, int lineIndex) {
+		super();
 		this.syntax = syntax;
 		this.token = token;
-		this.front = front;
-		this.end = end;
+		this.chIndex = chIndex;
+		this.lineIndex = lineIndex;
 	}
 
 	public String getSyntax() {
@@ -31,21 +33,21 @@ public class Terminal {
 	public void setToken(Token token) {
 		this.token = token;
 	}
-
-	public int getFront() {
-		return front;
+	
+	public int getChIndex() {
+		return chIndex;
 	}
 
-	public void setFront(int front) {
-		this.front = front;
+	public void setChIndex(int chIndex) {
+		this.chIndex = chIndex;
 	}
 
-	public int getEnd() {
-		return end;
+	public int getLineIndex() {
+		return lineIndex;
 	}
 
-	public void setEnd(int end) {
-		this.end = end;
+	public void setLineIndex(int lineIndex) {
+		this.lineIndex = lineIndex;
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package com.example.parser;
 
-public class ParseState extends State {
+public class ParseState extends Stkelem {
 	private String state;
 	
 	public ParseState(String state) {

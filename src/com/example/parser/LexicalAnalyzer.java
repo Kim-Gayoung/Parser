@@ -2,7 +2,7 @@ package com.example.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 
 public class LexicalAnalyzer {
@@ -11,13 +11,13 @@ public class LexicalAnalyzer {
 	private ArrayList<String> strArr;
 	private ArrayList<Terminal> lexer;
 
-	public LexicalAnalyzer(InputStreamReader isr) {
+	public LexicalAnalyzer(Reader isr) {
 		br = new BufferedReader(isr);
 		strArr = new ArrayList<>();
 		lexer = new ArrayList<>();
 	}
 
-	public ArrayList<Terminal> Lexing() throws IOException {
+	public ArrayList<Terminal> Lexing() throws IOException, LexerException {
 		String read_string = br.readLine();
 
 		while (true) {
@@ -39,7 +39,7 @@ public class LexicalAnalyzer {
 			String line = strArr.get(0);
 			String str = "";
 			int strIdx = 0;
-			Token currentTok = Token.NONE;
+			Token currentTok;
 
 			while (line != null && strIdx < line.length()) {
 				char ch = line.charAt(strIdx);
@@ -101,6 +101,8 @@ public class LexicalAnalyzer {
 					case '*':
 						currentTok = Token.MULTIPLY;
 						break;
+					default:
+						throw new LexerException("Error: " + ch + "");
 					}
 					str = str + ch;
 					strIdx++;
@@ -112,7 +114,7 @@ public class LexicalAnalyzer {
 			lineno++;
 		}
 
-		Terminal epsilon = new Terminal("$", Token.NONE, -1, -1);
+		Terminal epsilon = new Terminal("$", Token.ENDOFTOKEN, -1, -1);
 		lexer.add(epsilon);
 
 		return lexer;
