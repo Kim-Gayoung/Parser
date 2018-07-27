@@ -12,19 +12,19 @@ public enum Token {
 	PLUS("+"), MULTIPLY("*"),
 	NUM("num"), ID("id");
 	
-	private String syntax;
+	private String strToken;
 	
-	private Token(String syntax) {
-		this.syntax = syntax;
+	private Token(String strToken) {
+		this.strToken = strToken;
 	}
 	
-	public String getSyntax() {
-		return syntax;
+	public String getStrToken() {
+		return strToken;
 	}
 	
 	public static Token findToken(String strToken) throws ParserException {
 		for (Token t: Token.values()) {
-			if (t.getSyntax().equals(strToken))
+			if (t.getStrToken().equals(strToken))
 				return t;
 		}
 		throw new ParserException(strToken + " not expected.");

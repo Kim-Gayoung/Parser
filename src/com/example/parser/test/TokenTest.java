@@ -16,7 +16,7 @@ class TokenTest {
 			Token plus = Token.PLUS;
 			Token end = Token.ENDOFTOKEN;
 			
-			String plusStr = plus.getSyntax();
+			String plusStr = plus.getStrToken();
 
 			assertTrue(Token.findToken(")") == cParen);
 			assertTrue(Token.findToken("+") == plus);
