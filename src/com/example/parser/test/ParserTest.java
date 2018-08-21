@@ -7,22 +7,20 @@ import java.io.StringReader;
 
 import org.junit.jupiter.api.Test;
 
+import com.example.lib.LexerException;
+import com.example.lib.ParserException;
 import com.example.parser.ArithExpr;
 import com.example.parser.Expr;
-import com.example.parser.LexerException;
-import com.example.parser.LexicalAnalyzer;
 import com.example.parser.NumValue;
 import com.example.parser.Parser;
-import com.example.parser.ParserException;
 
 class ParserTest {
 	@Test
 	void test1() throws IOException, LexerException, ParserException {
 		StringReader sr = new StringReader("123");
-		LexicalAnalyzer lexical = new LexicalAnalyzer(sr);
-		Parser parser = new Parser(lexical);
+		Parser parser = new Parser();
 		
-		Expr e = parser.Parsing();
+		Expr e = parser.Parsing(sr);
 		
 		assertTrue(e instanceof NumValue);
 	}
@@ -30,10 +28,9 @@ class ParserTest {
 	@Test
 	void test2() throws IOException, LexerException, ParserException {
 		StringReader sr = new StringReader("123 +  xyz34 * (456 + abc5)");
-		LexicalAnalyzer lexical = new LexicalAnalyzer(sr);
-		Parser parser = new Parser(lexical);
+		Parser parser = new Parser();
 		
-		Expr e = parser.Parsing();
+		Expr e = parser.Parsing(sr);
 		
 		assertTrue(e instanceof ArithExpr && ((ArithExpr) e).getOp() == ArithExpr.PLUS);
 	}

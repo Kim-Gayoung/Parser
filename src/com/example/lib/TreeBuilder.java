@@ -1,4 +1,4 @@
-package com.example.parser;
+package com.example.lib;
 
 public interface TreeBuilder {
 	public Object treeBuilder();

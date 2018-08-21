@@ -1,10 +1,10 @@
 package com.example.parser.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.example.parser.ParserException;
+import com.example.lib.ParserException;
 import com.example.parser.Token;
 
 class TokenTest {
@@ -14,7 +14,7 @@ class TokenTest {
 		try {
 			Token cParen = Token.CLOSEPAREN;
 			Token plus = Token.PLUS;
-			Token end = Token.ENDOFTOKEN;
+			Token end = Token.END_OF_TOKEN;
 			
 			String plusStr = plus.getStrToken();
 

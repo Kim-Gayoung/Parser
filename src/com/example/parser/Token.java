@@ -1,23 +1,18 @@
 package com.example.parser;
 
-import java.util.HashMap;
+import com.example.lib.ParserException;
 
 public enum Token {
-//	ENDOFTOKEN,
-//	OPENPAREN, CLOSEPAREN,
-//	PLUS, MULTIPLY,
-//	NUM, ID	
-	ENDOFTOKEN("$"),
+	END_OF_TOKEN("$"),
 	OPENPAREN("("), CLOSEPAREN(")"),
 	PLUS("+"), MULTIPLY("*"),
-	NUM("num"), ID("id");
+	ID("id"), NUM("num");
 	
 	private String strToken;
 	
-	private Token(String strToken) {
+	Token (String strToken) {
 		this.strToken = strToken;
 	}
-	
 	public String getStrToken() {
 		return strToken;
 	}
@@ -30,4 +25,3 @@ public enum Token {
 		throw new ParserException(strToken + " not expected.");
 	}
 }
-

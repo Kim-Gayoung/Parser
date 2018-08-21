@@ -1,4 +1,4 @@
-package com.example.parser;
+package com.example.lib;
 
 public class ParseState extends Stkelem {
 	private String state;
